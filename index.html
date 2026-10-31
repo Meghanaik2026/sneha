@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>U02KN25S0041</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4fbfa;
+    color:#123d45;
+}
+
+
+/* ================= HEADER ================= */
+
+header{
+    position:absolute;
+    top:20px;
+    left:5%;
+    width:90%;
+    height:70px;
+    z-index:10;
+
+    background:rgba(255,255,255,.96);
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 25px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#078c78;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:27px;
+}
+
+.logo h2{
+    color:#123d45;
+}
+
+.logo small{
+    color:#79918f;
+    font-size:8px;
+    letter-spacing:2px;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#21484d;
+    font-size:13px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#078c78;
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+
+    min-height:650px;
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+
+    padding:100px 9% 70px;
+
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        90deg,
+        rgba(255,255,255,.98),
+        rgba(255,255,255,.65),
+        rgba(255,255,255,.10)
+    ),
+
+    url("https://images.squarespace-cdn.com/content/v1/5deea3f85d93c56ab168abe8/1643753257844-MVVQBCJ8OD0S5PEM3VDP/Gaspeareau_Nicolas%2BWINKLER.jpg");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:520px;
+    z-index:2;
+}
+
+.tag{
+    color:#078c78;
+    font-size:12px;
+    letter-spacing:3px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.hero h1{
+    font-family:Georgia,serif;
+    font-size:60px;
+    line-height:1;
+}
+
+.hero h2{
+    color:#078c78;
+    font-family:cursive;
+    font-size:38px;
+    margin:12px 0;
+}
+
+.hero p{
+    color:#526b69;
+    line-height:1.7;
+    margin:20px 0;
+    max-width:440px;
+}
+
+.shop{
+    display:inline-block;
+
+    background:#078c78;
+    color:white;
+
+    padding:15px 28px;
+
+    border-radius:30px;
+
+    text-decoration:none;
+    font-weight:bold;
+
+    box-shadow:0 8px 20px rgba(0,130,110,.25);
+}
+
+.shop:hover{
+    background:#056d60;
+}
+
+
+/* ================= PRODUCT SECTION ================= */
+
+.products{
+
+    width:90%;
+    max-width:1150px;
+
+    margin:-65px auto 0;
+
+    position:relative;
+    z-index:5;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:18px;
+}
+
+
+/* CARD */
+
+.card{
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.13);
+
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-9px);
+}
+
+
+/* IMAGE */
+
+.photo{
+
+    height:180px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    background:#d9efec;
+}
+
+.photo img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.badge{
+
+    position:absolute;
+
+    top:12px;
+    left:12px;
+
+    z-index:2;
+
+    background:white;
+
+    color:#078c78;
+
+    padding:7px 11px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    font-weight:bold;
+}
+
+
+/* CARD INFO */
+
+.info{
+    padding:17px;
+}
+
+.info h3{
+    margin-bottom:7px;
+}
+
+.info p{
+    color:#78908d;
+    font-size:12px;
+}
+
+.bottom{
+
+    margin-top:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.price{
+    color:#078c78;
+    font-weight:bold;
+}
+
+.order{
+
+    text-decoration:none;
+
+    background:#e5f7f3;
+
+    color:#078c78;
+
+    padding:8px 12px;
+
+    border-radius:20px;
+
+    font-size:11px;
+
+    font-weight:bold;
+}
+
+
+/* ================= FEATURES ================= */
+
+.features{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:50px 20px;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+}
+
+.feature{
+
+    background:white;
+
+    padding:22px;
+
+    text-align:center;
+
+    border-radius:16px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.feature-icon{
+    font-size:27px;
+}
+
+.feature h4{
+    margin-top:8px;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer{
+
+    background:#123e44;
+
+    color:white;
+
+    text-align:center;
+
+    padding:35px;
+}
+
+footer p{
+
+    color:#b9d5d2;
+
+    margin-top:8px;
+
+    font-size:12px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+    nav{
+        display:none;
+    }
+
+    .hero{
+        padding-left:7%;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+    .hero h2{
+        font-size:30px;
+    }
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .features{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:500px){
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🐟
+        </div>
+
+        <div>
+
+            <h2>FreshCatch</h2>
+
+            <small>
+                FRESH • QUALITY • DELIVERED
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="Home.html">HOME</a>
+
+        <a href="fish.html">FISH</a>
+
+        <a href="meat.html">MEAT</a>
+
+        <a href="seafood.html">SEAFOOD</a>
+
+        <a href="offers.html">OFFERS</a>
+
+        <a href="Contact.html">CONTACT</a>
+         
+        <a href="Cart.html">CART</a> 
+        
+        <a href="Rating1.html">RATING</a>
+        
+        <a href="Order.html">ORDER</a>
+        
+
+    </nav>
+
+
+    <div>
+        🛒
+    </div>
+
+</header>
+
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="tag">
+            FRESH FROM NATURE
+        </div>
+
+        <h1>
+            Pure Freshness
+        </h1>
+
+        <h2>
+            Straight to Your Table
+        </h2>
+
+        <p>
+            Fresh fish, premium meat and delicious seafood,
+            carefully selected and delivered fresh to your home.
+        </p>
+
+        <a href="#" class="shop">
+            SHOP NOW →
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section class="products">
+
+
+<!-- SINGLE FRESH FISH -->
+
+<div class="card">
+
+    <div class="photo">
+
+        <span class="badge">
+            FRESH TODAY
+        </span>
+
+        <img
+        src="https://www.starquik.com/cdn/shop/files/SQ150252_1_f5458495-6da9-443e-ab5f-38b4f3ffc666.jpg?v=1772025121"
+        alt="Single Fresh Bangde Fish">
+
+    </div>
+
+    <div class="info">
+
+        <h3>
+            🐟 Fresh Fish
+        </h3>
+
+        <p>
+            Fresh Bangde Fish
+        </p>
+
+        <div class="bottom">
+
+            <span class="price">
+                ₹280 / kg
+            </span>
+
+            <a href="#" class="order">
+                ORDER
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- FRESH MEAT -->
+
+<div class="card">
+
+    <div class="photo">
+
+        <span class="badge">
+            PREMIUM
+        </span>
+
+        <img
+        src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=900&q=80"
+        alt="Fresh Meat">
+
+    </div>
+
+    <div class="info">
+
+        <h3>
+            🥩 Fresh Meat
+        </h3>
+
+        <p>
+            Premium Quality Meat
+        </p>
+
+        <div class="bottom">
+
+            <span class="price">
+                ₹420 / kg
+            </span>
+
+            <a href="#" class="order">
+                ORDER
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- FRESH PRAWNS -->
+
+<div class="card">
+
+    <div class="photo">
+
+        <span class="badge">
+            SEAFOOD
+        </span>
+
+        <img
+        src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_600,h_600,c_fit/FOOD_CATALOG/IMAGES/CMS/2026/1/6/e64cb187-11fc-43fe-9bec-beb594d97e19_fcf88e58-c491-4ec2-8b9d-c3b05741251e.jpg"
+        alt="Fresh Prawns">
+
+    </div>
+
+    <div class="info">
+
+        <h3>
+            🍤 Fresh Prawns
+        </h3>
+
+        <p>
+            Fresh & Clean Prawns
+        </p>
+
+        <div class="bottom">
+
+            <span class="price">
+                ₹500 / kg
+            </span>
+
+            <a href="#" class="order">
+                ORDER
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- FRESH CRAB -->
+
+<div class="card">
+
+    <div class="photo">
+
+        <span class="badge">
+            SPECIAL OFFER
+        </span>
+
+        <img
+        src="https://www.janvanas.nl/static/uploads-cms2/iStock-624438852.jpg"
+        alt="Fresh Crab">
+
+    </div>
+
+    <div class="info">
+
+        <h3>
+            🦀 Fresh Crab
+        </h3>
+
+        <p>
+            Fresh Crab Special Deal
+        </p>
+
+        <div class="bottom">
+
+            <span class="price">
+                ₹450 / kg
+            </span>
+
+            <a href="#" class="order">
+                ORDER
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features">
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            🌊
+        </div>
+
+        <h4>
+            Fresh From Water
+        </h4>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ❄️
+        </div>
+
+        <h4>
+            Cold & Fresh
+        </h4>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ✓
+        </div>
+
+        <h4>
+            Quality Checked
+        </h4>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            🚚
+        </div>
+
+        <h4>
+            Fast Delivery
+        </h4>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <h2>
+        🐟 FreshCatch
+    </h2>
+
+    <p>
+        Fresh Fish • Fresh Meat • Prawns • Crab
+    </p>
+
+    <p>
+        © 2026 FreshCatch. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+</body>
+</html>
