@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FreshCatch - Cart</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f1d8;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background: #075c4b;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav h2 {
+            color: white;
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .cart-count {
+            background: #ffd83d;
+            color: black;
+            padding: 5px 9px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+
+        /* CART */
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #075c4b;
+        }
+
+        .cart-item {
+            background: white;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+        .item-info h3 {
+            margin: 0 0 8px;
+            color: #075c4b;
+        }
+
+        .item-info p {
+            margin: 5px 0;
+        }
+
+        .quantity button {
+            padding: 6px 12px;
+            border: none;
+            background: #075c4b;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .quantity span {
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .remove {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+
+        /* TOTAL */
+
+        .total-box {
+            background: white;
+            padding: 25px;
+            margin-top: 25px;
+            border-radius: 12px;
+            text-align: right;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+        .total-box h2 {
+            color: #075c4b;
+        }
+
+
+        /* BUTTON */
+
+        .bill-button {
+            background: #075c4b;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .bill-button:hover {
+            background: #043f34;
+        }
+
+
+        .empty {
+            text-align: center;
+            font-size: 20px;
+            color: #555;
+            margin-top: 50px;
+        }
+
+
+        /* BILL */
+
+        #bill {
+            display: none;
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 35px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+        }
+
+        .bill-header {
+            text-align: center;
+            border-bottom: 2px solid #075c4b;
+            padding-bottom: 15px;
+        }
+
+        .bill-header h1 {
+            margin: 0;
+            color: #075c4b;
+        }
+
+        .customer {
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .bill-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        .bill-table th,
+        .bill-table td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .bill-table th {
+            background: #075c4b;
+            color: white;
+        }
+
+        .bill-total {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .print-button {
+            background: #e88924;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        /* PRINT */
+
+        @media print {
+
+            body * {
+                visibility: hidden;
+            }
+
+            #bill,
+            #bill * {
+                visibility: visible;
+            }
+
+            #bill {
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 90%;
+                box-shadow: none;
+            }
+
+            .print-button {
+                display: none;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <h2>FreshCatch</h2>
+
+    <div>
+
+        <a href="index.html">Home</a>
+
+        <a href="Fish.html">Fish</a>
+
+        <a href="Meat.html">Meat</a>
+
+        <a href="Seafood.html">Seafood</a>
+
+        <a href="Special.html">Special Offers</a>
+
+        <a href="Contact.html">Contact</a>
+
+        <a href="Cart.html">
+            🛒 Cart
+            <span class="cart-count" id="cartCount">0</span>
+        </a>
+
+         <a href="rating1.html">Rating</a>
+         <a href="Order.html">Location</a>
+         <a href="payment.html">Payment</a>
+
+
+
+         
+        
+
+
+    </div>
+
+</nav>
+
+
+
+<!-- CART -->
+
+<div class="container">
+
+    <h1>My Cart</h1>
+
+    <div id="cartItems"></div>
+
+
+    <div class="total-box">
+
+        <h2>
+            Total Items:
+            <span id="totalItems">0</span>
+        </h2>
+
+        <h2>
+            Total Amount:
+            ₹<span id="totalAmount">0</span>
+        </h2>
+
+
+        <button
+            class="bill-button"
+            onclick="generateBill()">
+
+            GENERATE BILL
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- BILL -->
+
+<div id="bill">
+
+    <div class="bill-header">
+
+        <h1>FreshCatch</h1>
+
+        <p>Freshness Straight to Your Table</p>
+
+        <h2>INVOICE / BILL</h2>
+
+    </div>
+
+
+    <div class="customer">
+
+        <strong>Customer Name:</strong>
+        <span id="billName"></span>
+        <br>
+
+        <strong>Phone:</strong>
+        <span id="billPhone"></span>
+        <br>
+
+        <strong>Address:</strong>
+        <span id="billAddress"></span>
+        <br>
+
+        <strong>Date:</strong>
+        <span id="billDate"></span>
+        <br>
+
+        <strong>Bill No:</strong>
+        <span id="billNumber"></span>
+
+    </div>
+
+
+    <table class="bill-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Sl.No</th>
+
+                <th>Item</th>
+
+                <th>Price / kg</th>
+
+                <th>Quantity</th>
+
+                <th>Total</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="billItems">
+
+        </tbody>
+
+    </table>
+
+
+    <div class="bill-total">
+
+        <h3>
+            Total Items:
+            <span id="billTotalItems">0</span>
+        </h3>
+
+        <h2>
+            Grand Total:
+            ₹<span id="billTotal">0</span>
+        </h2>
+
+    </div>
+
+
+    <button
+        class="print-button"
+        onclick="window.print()">
+
+        PRINT / SAVE BILL
+
+    </button>
+
+</div>
+
+
+
+<script>
+
+
+/* GET CART */
+
+let cart =
+    JSON.parse(localStorage.getItem("cart")) || [];
+
+
+
+/* DISPLAY CART */
+
+function displayCart() {
+
+    let cartItems =
+        document.getElementById("cartItems");
+
+    cartItems.innerHTML = "";
+
+    let totalItems = 0;
+
+    let totalAmount = 0;
+
+
+    if (cart.length === 0) {
+
+        cartItems.innerHTML =
+            '<p class="empty">Your cart is empty.</p>';
+
+        document.getElementById("totalItems").innerText = 0;
+
+        document.getElementById("totalAmount").innerText = 0;
+
+        document.getElementById("cartCount").innerText = 0;
+
+        return;
+    }
+
+
+    cart.forEach(function(item, index) {
+
+        let quantity =
+            item.quantity || 1;
+
+        let itemTotal =
+            item.price * quantity;
+
+        totalItems += quantity;
+
+        totalAmount += itemTotal;
+
+
+        cartItems.innerHTML += `
+
+            <div class="cart-item">
+
+                <div class="item-info">
+
+                    <h3>${item.name}</h3>
+
+                    <p>
+                        Price:
+                        ₹${item.price} / kg
+                    </p>
+
+                    <p>
+                        Total:
+                        ₹${itemTotal}
+                    </p>
+
+                </div>
+
+
+                <div class="quantity">
+
+                    <button
+                        onclick="decrease(${index})">
+
+                        -
+
+                    </button>
+
+                    <span>
+                        ${quantity}
+                    </span>
+
+                    <button
+                        onclick="increase(${index})">
+
+                        +
+
+                    </button>
+
+                </div>
+
+
+                <button
+                    class="remove"
+                    onclick="removeItem(${index})">
+
+                    REMOVE
+
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+
+    document.getElementById("totalItems").innerText =
+        totalItems;
+
+    document.getElementById("totalAmount").innerText =
+        totalAmount;
+
+    document.getElementById("cartCount").innerText =
+        totalItems;
+
+}
+
+
+
+/* INCREASE */
+
+function increase(index) {
+
+    cart[index].quantity++;
+
+    saveCart();
+
+}
+
+
+
+/* DECREASE */
+
+function decrease(index) {
+
+    if (cart[index].quantity > 1) {
+
+        cart[index].quantity--;
+
+    } else {
+
+        cart.splice(index, 1);
+
+    }
+
+    saveCart();
+
+}
+
+
+
+/* REMOVE */
+
+function removeItem(index) {
+
+    cart.splice(index, 1);
+
+    saveCart();
+
+}
+
+
+
+/* SAVE */
+
+function saveCart() {
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+    displayCart();
+
+}
+
+
+
+/* GENERATE BILL */
+
+function generateBill() {
+
+
+    if (cart.length === 0) {
+
+        alert("Your cart is empty!");
+
+        return;
+
+    }
+
+
+    let customerName =
+        prompt("Enter Customer Name:");
+
+    if (!customerName) {
+
+        customerName = "Customer";
+
+    }
+
+
+    let phone =
+        prompt("Enter Phone Number:");
+
+    if (!phone) {
+
+        phone = "Not Provided";
+
+    }
+
+
+    let address =
+        prompt("Enter Delivery Address:");
+
+    if (!address) {
+
+        address = "Not Provided";
+
+    }
+
+
+    document.getElementById("billName").innerText =
+        customerName;
+
+    document.getElementById("billPhone").innerText =
+        phone;
+
+    document.getElementById("billAddress").innerText =
+        address;
+
+
+    /* DATE */
+
+    let today = new Date();
+
+    let date =
+        today.toLocaleDateString("en-IN");
+
+    document.getElementById("billDate").innerText =
+        date;
+
+
+    /* BILL NUMBER */
+
+    let billNumber =
+        "FC" +
+        Date.now();
+
+    document.getElementById("billNumber").innerText =
+        billNumber;
+
+
+    /* BILL ITEMS */
+
+    let billItems =
+        document.getElementById("billItems");
+
+    billItems.innerHTML = "";
+
+
+    let totalItems = 0;
+
+    let totalAmount = 0;
+
+
+    cart.forEach(function(item, index) {
+
+        let quantity =
+            item.quantity || 1;
+
+        let itemTotal =
+            item.price * quantity;
+
+
+        totalItems += quantity;
+
+        totalAmount += itemTotal;
+
+
+        billItems.innerHTML += `
+
+            <tr>
+
+                <td>${index + 1}</td>
+
+                <td>${item.name}</td>
+
+                <td>₹${item.price}</td>
+
+                <td>${quantity}</td>
+
+                <td>₹${itemTotal}</td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    document.getElementById("billTotalItems").innerText =
+        totalItems;
+
+
+    document.getElementById("billTotal").innerText =
+        totalAmount;
+
+
+    /* SHOW BILL */
+
+    document.getElementById("bill").style.display =
+        "block";
+
+
+    /* SCROLL TO BILL */
+
+    document.getElementById("bill").scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+
+/* LOAD */
+
+displayCart();
+
+</script>
+
+
+</body>
+
+</html>
