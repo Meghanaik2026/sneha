@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FreshCatch - Delivery Location</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eafff4;
+}
+
+/* NAVBAR */
+
+nav{
+    background:#064b3b;
+    padding:15px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:14px;
+}
+
+nav a:hover{
+    color:#7dffbf;
+}
+
+/* HEADER */
+
+.header{
+    text-align:center;
+    padding:25px 10px 15px;
+}
+
+.header h1{
+    color:#064b3b;
+    margin:5px;
+}
+
+.header p{
+    color:#555;
+}
+
+/* MAIN BOX */
+
+.container{
+    width:95%;
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.12);
+}
+
+/* SEARCH */
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.search-box input{
+    flex:1;
+    padding:13px;
+    border:2px solid #16a66b;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+.search-box button{
+    background:#16a66b;
+    color:white;
+    border:none;
+    padding:13px 22px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.search-box button:hover{
+    background:#087d4e;
+}
+
+/* MAP */
+
+#map{
+    width:100%;
+    height:450px;
+    border-radius:12px;
+    overflow:hidden;
+    border:2px solid #16a66b;
+}
+
+#map iframe{
+    width:100%;
+    height:100%;
+    border:0;
+}
+
+/* ADDRESS */
+
+.address-box{
+    margin-top:15px;
+    background:#f1fff8;
+    padding:15px;
+    border-radius:10px;
+    border-left:5px solid #16a66b;
+}
+
+.address-box h3{
+    margin-top:0;
+    color:#064b3b;
+}
+
+#selectedAddress{
+    color:#444;
+    line-height:1.5;
+}
+
+/* FORM */
+
+.form{
+    margin-top:20px;
+}
+
+.form input,
+.form textarea{
+    width:100%;
+    padding:13px;
+    margin-bottom:12px;
+    border:1px solid #aaa;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+.form textarea{
+    height:90px;
+    resize:none;
+}
+
+/* ORDER BUTTON */
+
+.order-btn{
+    width:100%;
+    padding:15px;
+    background:#16a66b;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.order-btn:hover{
+    background:#087d4e;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    nav{
+        gap:10px;
+    }
+
+    nav a{
+        font-size:12px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    #map{
+        height:350px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+<a href="index.html">HOME</a>
+
+<a href="fish.html">FISH</a>
+
+<a href="meat.html">MEAT</a>
+
+<a href="seafood.html">SEAFOOD</a>
+
+<a href="specialoffers.html">SPECIAL OFFERS</a>
+
+<a href="contact.html">CONTACT</a>
+
+<a href="Cart.html">🛒 CART</a>
+
+<a href="rating1.html">⭐ RATING</a>
+
+<a href="Order.html">Location</a>
+        <a href="payment.html">Payment</a>
+
+
+
+
+</nav>
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1>🚚 Delivery Location</h1>
+
+<p>
+Search your location and select your delivery place
+</p>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="container">
+
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<input
+type="text"
+id="locationSearch"
+placeholder="Search your location..."
+>
+
+<button onclick="searchLocation()">
+🔍 SEARCH
+</button>
+
+</div>
+
+
+<!-- REAL GOOGLE MAP -->
+
+<div id="map">
+
+<iframe
+id="mapFrame"
+src="https://www.google.com/maps?q=Kumta,Karnataka,India&output=embed"
+loading="lazy"
+allowfullscreen>
+</iframe>
+
+</div>
+
+
+<!-- SELECTED LOCATION -->
+
+<div class="address-box">
+
+<h3>📍 Selected Location</h3>
+
+<p id="selectedAddress">
+Kumta, Karnataka, India
+</p>
+
+</div>
+
+
+<!-- CUSTOMER FORM -->
+
+<div class="form">
+
+<input
+type="text"
+id="name"
+placeholder="Enter your name"
+>
+
+<input
+type="tel"
+id="phone"
+placeholder="Enter phone number"
+>
+
+<textarea
+id="address"
+placeholder="Enter complete delivery address"
+></textarea>
+
+<button
+class="order-btn"
+onclick="placeOrder()">
+🚚 PLACE ORDER
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================
+   SEARCH GOOGLE MAP
+===================================== */
+
+function searchLocation(){
+
+    let location =
+    document
+    .getElementById("locationSearch")
+    .value
+    .trim();
+
+
+    if(location === ""){
+
+        alert("Please enter your location.");
+
+        return;
+
+    }
+
+
+    let mapFrame =
+    document.getElementById("mapFrame");
+
+
+    /*
+       Open Google Maps location
+    */
+
+    mapFrame.src =
+    "https://www.google.com/maps?q=" +
+    encodeURIComponent(location + ", Karnataka, India") +
+    "&output=embed";
+
+
+    /*
+       Show selected location
+    */
+
+    document
+    .getElementById("selectedAddress")
+    .innerText =
+    location + ", Karnataka, India";
+
+
+    /*
+       Put address into textarea
+    */
+
+    document
+    .getElementById("address")
+    .value =
+    location + ", Karnataka, India";
+
+}
+
+
+/* =====================================
+   ENTER KEY SEARCH
+===================================== */
+
+document
+.getElementById("locationSearch")
+.addEventListener(
+    "keypress",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            searchLocation();
+
+        }
+
+    }
+);
+
+
+/* =====================================
+   PLACE ORDER
+===================================== */
+
+function placeOrder(){
+
+    let name =
+    document
+    .getElementById("name")
+    .value
+    .trim();
+
+
+    let phone =
+    document
+    .getElementById("phone")
+    .value
+    .trim();
+
+
+    let address =
+    document
+    .getElementById("address")
+    .value
+    .trim();
+
+
+    if(name === ""){
+
+        alert("Please enter your name.");
+
+        return;
+
+    }
+
+
+    if(phone === ""){
+
+        alert("Please enter your phone number.");
+
+        return;
+
+    }
+
+
+    if(address === ""){
+
+        alert("Please enter your delivery address.");
+
+        return;
+
+    }
+
+
+    alert(
+        "✅ Order placed successfully!\n\n" +
+
+        "Name: " + name +
+
+        "\nPhone: " + phone +
+
+        "\nAddress: " + address
+    );
+
+}
+
+</script>
+
+
+</body>
+</html>

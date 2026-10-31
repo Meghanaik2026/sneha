@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreshCatch - Seafood</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#eef5df;
+    color:#173d2d;
+}
+
+/* TOP NAVIGATION */
+nav{
+    background:#075c45;
+    padding:18px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.logo{
+    color:white;
+    font-size:28px;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:22px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#d9ef9b;
+}
+
+/* CART */
+.cart-link{
+    background:#ff9800;
+    padding:8px 14px;
+    border-radius:20px;
+}
+
+#cartCount{
+    background:white;
+    color:#075c45;
+    padding:3px 8px;
+    border-radius:50%;
+    margin-left:5px;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    padding:45px 10px 30px;
+}
+
+.title h1{
+    font-size:45px;
+    color:#075c45;
+}
+
+.title p{
+    margin-top:10px;
+    color:#666;
+}
+
+/* PRODUCTS */
+.products{
+    width:92%;
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+    padding-bottom:60px;
+}
+
+.product{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 7px 22px rgba(0,0,0,.15);
+}
+
+.product img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+}
+
+.info{
+    padding:20px;
+}
+
+.info h2{
+    color:#087857;
+    margin-bottom:12px;
+}
+
+.detail{
+    margin:9px 0;
+    color:#555;
+}
+
+.detail strong{
+    color:#173d2d;
+}
+
+.price{
+    font-size:21px;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.quantity{
+    color:#087857;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+/* BUTTON AREA */
+
+.button-area{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:17px;
+}
+
+/* ADD TO CART */
+
+.cart-button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:25px;
+    background:#ff9800;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.cart-button:hover{
+    background:#e68900;
+}
+
+/* ORDER BUTTON */
+
+.order{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:25px;
+    background:#087857;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.order:hover{
+    background:#05563f;
+}
+
+/* ORDER POPUP */
+
+.popup{
+    display:none;
+    position:fixed;
+    z-index:1000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.65);
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.order-box{
+    background:white;
+    width:100%;
+    max-width:480px;
+    border-radius:20px;
+    padding:30px;
+    position:relative;
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.order-box h2{
+    text-align:center;
+    color:#075c45;
+    margin-bottom:20px;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:12px;
+    font-size:30px;
+    cursor:pointer;
+    color:#555;
+}
+
+.order-box label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+.order-box input,
+.order-box textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+.order-box textarea{
+    height:80px;
+    resize:none;
+}
+
+.selected{
+    background:#eef5df;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+
+.total{
+    margin-top:15px;
+    text-align:center;
+    color:#087857;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.confirm{
+    width:100%;
+    margin-top:20px;
+    padding:13px;
+    border:none;
+    border-radius:25px;
+    background:#087857;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.confirm:hover{
+    background:#05563f;
+}
+
+footer{
+    background:#075c45;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+    .products{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    nav{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav a{
+        margin:7px;
+    }
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .title h1{
+        font-size:35px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- TOP NAVIGATION -->
+
+<nav>
+
+    <div class="logo">
+        FreshCatch
+    </div>
+
+    <div>
+
+        <a href="index.html">Home</a>
+
+        <a href="fish.html">Fish</a>
+
+        <a href="meat.html">Meat</a>
+
+        <a href="seafood.html">Seafood</a>
+
+        <a href="offers.html">Special Offers</a>
+
+        <a href="contact.html">Contact</a>
+
+        <a href="Cart.html" class="cart-link">
+
+            🛒 Cart
+
+            <span id="cartCount">0</span>
+
+        </a>
+
+ <a href="rating1.html">Rating</a>
+
+<a href="Order.html">Location</a>
+<a href="payment.html">Payment</a>
+
+
+
+  
+   
+
+
+    </div>
+
+</nav>
+
+
+
+<!-- TITLE -->
+
+<section class="title">
+
+    <h1>Fresh Seafood</h1>
+
+    <p>
+        Fresh and premium quality seafood for your table.
+    </p>
+
+</section>
+
+
+
+<!-- SEAFOOD PRODUCTS -->
+
+<section class="products">
+
+
+<!-- PRAWNS -->
+
+<div class="product">
+
+    <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=900&q=80">
+
+    <div class="info">
+
+        <h2>Fresh Prawns</h2>
+
+        <div class="detail">
+            <strong>Quality:</strong> Premium
+        </div>
+
+        <div class="detail">
+            <strong>Type:</strong> Sea Prawns
+        </div>
+
+        <div class="price">
+            ₹650 / kg
+        </div>
+
+        <div class="quantity">
+            Available Quantity: 10 kg
+        </div>
+
+
+        <div class="button-area">
+
+            <button class="cart-button"
+            onclick="addToCart('Fresh Prawns',650)">
+                🛒 ADD TO CART
+            </button>
+
+          <button class="order"
+            onclick="openOrder('Fresh Crab',550)">
+                ORDER
+            </button>
+    
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- CRAB -->
+
+<div class="product">
+
+    <img src="C:\Users\Kamadhenu BCA\Downloads\cr1.jpg">
+
+    <div class="info">
+
+        <h2>Fresh Crab</h2>
+
+        <div class="detail">
+            <strong>Quality:</strong> Premium
+        </div>
+
+        <div class="detail">
+            <strong>Type:</strong> Sea Crab
+        </div>
+
+        <div class="price">
+            ₹550 / kg
+        </div>
+
+        <div class="quantity">
+            Available Quantity: 8 kg
+        </div>
+
+
+        <div class="button-area">
+
+            <button class="cart-button"
+            onclick="addToCart('Fresh Crab',550)">
+                🛒 ADD TO CART
+            </button>
+
+            <button class="order"
+            onclick="openOrder('Fresh Crab',550)">
+                ORDER
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- SQUID -->
+
+<div class="product">
+
+    <img src="C:\Users\Kamadhenu BCA\Downloads\sq.jpg">
+
+    <div class="info">
+
+        <h2>Fresh Squid</h2>
+
+        <div class="detail">
+            <strong>Quality:</strong> Fresh
+        </div>
+
+        <div class="detail">
+            <strong>Type:</strong> Sea Squid
+        </div>
+
+        <div class="price">
+            ₹480 / kg
+        </div>
+
+        <div class="quantity">
+            Available Quantity: 7 kg
+        </div>
+
+
+        <div class="button-area">
+
+            <button class="cart-button"
+            onclick="addToCart('Fresh Squid',480)">
+                🛒 ADD TO CART
+            </button>
+
+            <button class="order"
+            onclick="openOrder('Fresh Squid',480)">
+                ORDER
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- CLAMS -->
+
+<div class="product">
+
+    <img src="C:\Users\Kamadhenu BCA\Downloads\cl1.jpg">
+
+    <div class="info">
+
+        <h2>clams</h2>
+
+        <div class="detail">
+            <strong>Quality:</strong> Premium
+        </div>
+
+        <div class="detail">
+            <strong>Type:</strong> Sea clams
+        </div>
+
+        <div class="price">
+            ₹1,200 / kg
+        </div>
+
+        <div class="quantity">
+            Available Quantity: 5 kg
+        </div>
+
+
+        <div class="button-area">
+
+            <button class="cart-button"
+            onclick="addToCart('clams',1200)">
+                🛒 ADD TO CART
+            </button>
+
+            <button class="order"
+            onclick="openOrder('Lobster',1200)">
+                ORDER
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- OYSTER -->
+
+<div class="product">
+
+    <img src="C:\Users\Kamadhenu BCA\Downloads\oy.jpg">
+
+    <div class="info">
+
+        <h2>Fresh Oyster</h2>
+
+        <div class="detail">
+            <strong>Quality:</strong> Premium
+        </div>
+
+        <div class="detail">
+            <strong>Type:</strong> Shellfish
+        </div>
+
+        <div class="price">
+            ₹700 / kg
+        </div>
+
+        <div class="quantity">
+            Available Quantity: 6 kg
+        </div>
+
+
+        <div class="button-area">
+
+            <button class="cart-button"
+            onclick="addToCart('Fresh Oyster',700)">
+                🛒 ADD TO CART
+            </button>
+
+            <button class="order"
+            onclick="openOrder('Fresh Oyster',700)">
+                ORDER
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- MUD CRAB -->
+
+<div class="product">
+
+    <img src="C:\Users\Kamadhenu BCA\Downloads\mc.jpg">
+
+    <div class="info">
+
+        <h2>Mud Crab</h2>
+
+        <div class="detail">
+            <strong>Quality:</strong> Premium
+        </div>
+
+        <div class="detail">
+            <strong>Type:</strong> Shellfish
+        </div>
+
+        <div class="price">
+            ₹700 / kg
+        </div>
+
+        <div class="quantity">
+            Available Quantity: 6 kg
+        </div>
+
+
+        <div class="button-area">
+
+            <button class="cart-button"
+            onclick="addToCart('Mud Crab',700)">
+                🛒 ADD TO CART
+            </button>
+
+            <button class="order"
+            onclick="openOrder('Mud Crab',700)">
+                ORDER
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- ORDER POPUP -->
+
+<div class="popup" id="orderPopup">
+
+    <div class="order-box">
+
+        <span class="close"
+        onclick="closeOrder()">&times;</span>
+
+        <h2>Place Your Order</h2>
+
+        <div class="selected">
+
+            Selected Seafood:
+
+            <span id="selectedSeafood"></span>
+
+        </div>
+
+
+        <label>Your Name</label>
+
+        <input
+        type="text"
+        id="customerName"
+        placeholder="Enter your name">
+
+
+        <label>Phone Number</label>
+
+        <input
+        type="tel"
+        id="phone"
+        placeholder="Enter 10-digit phone number"
+        maxlength="10">
+
+
+        <label>Delivery Address</label>
+
+        <textarea
+        id="address"
+        placeholder="Enter your complete address"></textarea>
+
+
+        <label>Quantity (kg)</label>
+
+        <input
+        type="number"
+        id="orderQuantity"
+        placeholder="Enter quantity"
+        min="1"
+        oninput="calculateTotal">
+
+
+        <div class="total" id="totalPrice">
+            Total: ₹0
+        </div>
+
+
+        <button class="confirm"
+        onclick="confirmOrder()">
+
+            CONFIRM ORDER
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<footer>
+
+© 2026 FreshCatch | Fresh Seafood
+
+</footer>
+
+
+
+<script>
+
+let selectedPrice = 0;
+let selectedSeafoodName = "";
+
+
+/* ADD TO CART */
+
+function addToCart(name, price){
+
+    let cart =
+        JSON.parse(localStorage.getItem("seafoodCart")) || [];
+
+    let existingItem =
+        cart.find(item => item.name === name);
+
+    if(existingItem){
+
+        existingItem.quantity++;
+
+    }
+    else{
+
+        cart.push({
+
+            name:name,
+
+            price:price,
+
+            quantity:1
+
+        });
+
+    }
+
+    localStorage.setItem(
+        "seafoodCart",
+        JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
+    alert(name + " added to cart!");
+
+}
+
+
+/* UPDATE CART COUNT */
+
+function updateCartCount(){
+
+    let cart =
+        JSON.parse(localStorage.getItem("seafoodCart")) || [];
+
+    let count = 0;
+
+    cart.forEach(function(item){
+
+        count += item.quantity;
+
+    });
+
+    document.getElementById("cartCount").innerText = count;
+
+}
+
+
+/* OPEN ORDER */
+
+function openOrder(name,price){
+
+    selectedSeafoodName = name;
+
+    selectedPrice = price;
+
+    document.getElementById("selectedSeafood").innerText =
+        name;
+
+    document.getElementById("orderQuantity").value = "";
+
+    document.getElementById("totalPrice").innerText =
+        "Total: ₹0";
+
+    document.getElementById("orderPopup").style.display =
+        "flex";
+}
+
+
+/* CLOSE ORDER */
+
+function closeOrder(){
+
+    document.getElementById("orderPopup").style.display =
+        "none";
+}
+
+
+/* CALCULATE TOTAL */
+
+function calculateTotal(){
+
+    let quantity =
+        document.getElementById("orderQuantity").value;
+
+    if(quantity > 0){
+
+        let total =
+            quantity * selectedPrice;
+
+        document.getElementById("totalPrice").innerText =
+            "Total: ₹" + total;
+
+    }
+    else{
+
+        document.getElementById("totalPrice").innerText =
+            "Total: ₹0";
+
+    }
+}
+
+
+/* CONFIRM ORDER */
+
+function confirmOrder(){
+
+    let name =
+        document.getElementById("customerName").value.trim();
+
+    let phone =
+        document.getElementById("phone").value.trim();
+
+    let address =
+        document.getElementById("address").value.trim();
+
+    let quantity =
+        document.getElementById("orderQuantity").value;
+
+
+    if(name === ""){
+
+        alert("Please enter your name.");
+
+        return;
+
+    }
+
+
+    if(phone.length !== 10){
+
+        alert("Please enter a valid 10-digit phone number.");
+
+        return;
+
+    }
+
+
+    if(address === ""){
+
+        alert("Please enter your delivery address.");
+
+        return;
+
+    }
+
+
+    if(quantity <= 0 || quantity === ""){
+
+        alert("Please enter the quantity.");
+
+        return;
+
+    }
+
+
+    let total =
+        quantity * selectedPrice;
+
+
+    alert(
+
+        "ORDER CONFIRMED!\n\n" +
+
+        "Seafood: " +
+        selectedSeafoodName +
+
+        "\nName: " +
+        name +
+
+        "\nPhone: " +
+        phone +
+
+        "\nAddress: " +
+        address +
+
+        "\nQuantity: " +
+        quantity +
+        " kg" +
+
+        "\nPrice: ₹" +
+        selectedPrice +
+        " / kg" +
+
+        "\nTotal Amount: ₹" +
+        total
+
+    );
+
+
+    closeOrder();
+
+}
+
+
+/* PAGE LOAD */
+
+updateCartCount();
+
+</script>
+
+</body>
+</html>ssss

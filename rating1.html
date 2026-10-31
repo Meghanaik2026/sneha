@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FreshCatch - Ratings & Reviews</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff3d6;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #003b2f;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            color: #ffd166;
+        }
+
+        /* PAGE */
+
+        .page-title {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .page-title h1 {
+            color: #064b3b;
+            font-size: 38px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #555;
+        }
+
+        /* REVIEW BOX */
+
+        .review-container {
+            width: 90%;
+            max-width: 650px;
+            margin: 30px auto 60px;
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.18);
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #064b3b;
+        }
+
+        select,
+        input,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        select:focus,
+        input:focus,
+        textarea:focus {
+            border-color: #16a66b;
+        }
+
+        textarea {
+            height: 110px;
+            resize: none;
+        }
+
+        /* STARS */
+
+        .stars {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .star {
+            font-size: 40px;
+            color: #ccc;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .star:hover {
+            transform: scale(1.1);
+        }
+
+        .star.selected {
+            color: orange;
+        }
+
+        /* BUTTON */
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 8px;
+            background: #16a66b;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #0d8c59;
+        }
+
+        /* SUCCESS MESSAGE */
+
+        .message {
+            text-align: center;
+            margin-top: 18px;
+            color: green;
+            font-weight: bold;
+        }
+
+        /* SELECTED PRODUCT */
+
+        .selected-info {
+            margin-top: 20px;
+            padding: 12px;
+            background: #effff7;
+            border-left: 4px solid #16a66b;
+            border-radius: 7px;
+            color: #064b3b;
+            font-weight: bold;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+                padding: 15px;
+            }
+
+            .navbar a {
+                font-size: 14px;
+            }
+
+            .review-container {
+                padding: 22px;
+            }
+
+            .page-title h1 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar">
+
+    <a href="index.html">Home</a>
+
+    <a href="fish.html">Fish</a>
+
+    <a href="meat.html">Meat</a>
+
+    <a href="seafood.html">Seafood</a>
+
+    <a href="specialoffers.html">Special Offers</a>
+
+    <a href="contact.html">Contact</a>
+
+    <a href="Cart.html">Cart</a>
+
+    <a href="rating1.html">Rating</a>
+   
+   <a href="Order.html">Location</a>
+   <a href="payment.html">Payment</a>
+
+
+
+</div>
+
+
+
+<!-- ================= TITLE ================= -->
+
+<div class="page-title">
+
+    <h1>⭐ Ratings & Reviews</h1>
+
+    <p>
+        Rate and review your favourite FreshCatch products
+    </p>
+
+</div>
+
+
+
+<!-- ================= REVIEW FORM ================= -->
+
+<div class="review-container">
+
+
+    <!-- CATEGORY -->
+
+    <label>Select Category</label>
+
+    <select id="category" onchange="loadProducts()">
+
+        <option value="Fish">
+            🐟 Fish
+        </option>
+
+        <option value="Meat">
+            🥩 Meat
+        </option>
+
+        <option value="Seafood">
+            🦐 Seafood
+        </option>
+
+        <option value="Special Offers">
+            🎁 Special Offers
+        </option>
+
+    </select>
+
+
+
+    <!-- PRODUCT -->
+
+    <label>Select Product</label>
+
+    <select id="product" onchange="showSelectedProduct()">
+    </select>
+
+
+
+    <!-- SELECTED PRODUCT -->
+
+    <div
+        class="selected-info"
+        id="selectedInfo">
+    </div>
+
+
+
+    <!-- NAME -->
+
+    <label>Your Name</label>
+
+    <input
+        type="text"
+        id="userName"
+        placeholder="Enter your name">
+
+
+
+    <!-- RATING -->
+
+    <label>Your Rating</label>
+
+    <div class="stars">
+
+        <span
+            class="star"
+            onclick="selectStar(1)">
+            ★
+        </span>
+
+        <span
+            class="star"
+            onclick="selectStar(2)">
+            ★
+        </span>
+
+        <span
+            class="star"
+            onclick="selectStar(3)">
+            ★
+        </span>
+
+        <span
+            class="star"
+            onclick="selectStar(4)">
+            ★
+        </span>
+
+        <span
+            class="star"
+            onclick="selectStar(5)">
+            ★
+        </span>
+
+    </div>
+
+
+
+    <!-- REVIEW -->
+
+    <label>Your Review</label>
+
+    <textarea
+        id="reviewText"
+        placeholder="Write your review here...">
+    </textarea>
+
+
+
+    <!-- SUBMIT -->
+
+    <button
+        class="submit-btn"
+        onclick="submitReview()">
+
+        ⭐ Submit Review
+
+    </button>
+
+
+
+    <!-- MESSAGE -->
+
+    <div
+        class="message"
+        id="message">
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* ==================================================
+   PRODUCT LIST
+================================================== */
+
+const products = {
+
+
+    /* ================= FISH ================= */
+
+    "Fish": [
+
+        "Bangade Fish",
+
+        "Pomfret",
+
+        "Rohu Fish",
+
+        "Surmai Fish",
+
+        "Sardine",
+
+        "Tuna Fish",
+
+        "Red Snapper Fish",
+
+        "Hilsa Fish",
+
+        "Nethili Fish",
+
+        "Catla Fish",
+
+        "Black Pomfret Fish",
+
+        "Rani Fish"
+
+    ],
+
+
+
+    /* ================= MEAT ================= */
+
+    "Meat": [
+
+        "Chicken",
+
+        "Mutton",
+
+        "Beef",
+
+        "Chicken Breast",
+
+        "Chicken Legs",
+
+        "Mutton Curry Cut"
+
+    ],
+
+
+
+    /* ================= SEAFOOD ================= */
+
+    "Seafood": [
+
+        "Prawns",
+
+        "Crab",
+
+        "Squid",
+
+        "Clams",
+
+        "Oyster",
+
+        "Lobster"
+
+    ],
+
+
+
+    /* ================= SPECIAL OFFERS ================= */
+
+    "Special Offers": [
+
+        "Fish Combo Pack",
+
+        "Chicken Combo Pack",
+
+        "Seafood Combo Pack",
+
+        "Family Combo Pack"
+
+    ]
+
+};
+
+
+
+/* ==================================================
+   VARIABLES
+================================================== */
+
+let selectedRating = 0;
+
+
+/*
+   IMPORTANT:
+   Same key must be used in all pages.
+*/
+
+const REVIEW_KEY = "freshCatchReviews";
+
+
+
+/* ==================================================
+   LOAD PRODUCTS
+================================================== */
+
+function loadProducts() {
+
+
+    const category =
+        document.getElementById("category").value;
+
+
+    const productSelect =
+        document.getElementById("product");
+
+
+    productSelect.innerHTML = "";
+
+
+    products[category].forEach(function(product) {
+
+
+        const option =
+            document.createElement("option");
+
+
+        option.value = product;
+
+
+        option.textContent = product;
+
+
+        productSelect.appendChild(option);
+
+
+    });
+
+
+    showSelectedProduct();
+
+}
+
+
+
+/* ==================================================
+   SHOW SELECTED PRODUCT
+================================================== */
+
+function showSelectedProduct() {
+
+
+    const category =
+        document.getElementById("category").value;
+
+
+    const product =
+        document.getElementById("product").value;
+
+
+    document.getElementById("selectedInfo").innerHTML =
+
+        "Selected: " +
+        category +
+        " → " +
+        product;
+
+}
+
+
+
+/* ==================================================
+   SELECT STAR
+================================================== */
+
+function selectStar(number) {
+
+
+    selectedRating = number;
+
+
+    const stars =
+        document.querySelectorAll(".star");
+
+
+    stars.forEach(function(star, index) {
+
+
+        if (index < number) {
+
+            star.classList.add("selected");
+
+        } else {
+
+            star.classList.remove("selected");
+
+        }
+
+    });
+
+}
+
+
+
+/* ==================================================
+   SUBMIT REVIEW
+================================================== */
+
+function submitReview() {
+
+
+    const category =
+        document.getElementById("category").value;
+
+
+    const product =
+        document.getElementById("product").value;
+
+
+    const userName =
+        document
+        .getElementById("userName")
+        .value
+        .trim();
+
+
+    const reviewText =
+        document
+        .getElementById("reviewText")
+        .value
+        .trim();
+
+
+
+    /* NAME CHECK */
+
+    if (userName === "") {
+
+        alert("Please enter your name.");
+
+        return;
+
+    }
+
+
+
+    /* RATING CHECK */
+
+    if (selectedRating === 0) {
+
+        alert("Please select a rating.");
+
+        return;
+
+    }
+
+
+
+    /* REVIEW CHECK */
+
+    if (reviewText === "") {
+
+        alert("Please write your review.");
+
+        return;
+
+    }
+
+
+
+    /* GET OLD REVIEWS */
+
+    let allReviews =
+        JSON.parse(
+            localStorage.getItem(REVIEW_KEY)
+        ) || {};
+
+
+
+    /*
+       CATEGORY CREATE
+    */
+
+    if (!allReviews[category]) {
+
+        allReviews[category] = {};
+
+    }
+
+
+
+    /*
+       PRODUCT CREATE
+    */
+
+    if (!allReviews[category][product]) {
+
+        allReviews[category][product] = [];
+
+    }
+
+
+
+    /*
+       ADD REVIEW
+    */
+
+    allReviews[category][product].push({
+
+        name: userName,
+
+        rating: selectedRating,
+
+        text: reviewText,
+
+        date: new Date().toLocaleDateString()
+
+    });
+
+
+
+    /*
+       SAVE TO LOCAL STORAGE
+    */
+
+    localStorage.setItem(
+        REVIEW_KEY,
+        JSON.stringify(allReviews)
+    );
+
+
+
+    /* SUCCESS */
+
+    document.getElementById("message").innerHTML =
+
+        "✅ Your review for " +
+        product +
+        " has been submitted successfully!";
+
+
+
+    /* CLEAR */
+
+    document.getElementById("userName").value = "";
+
+    document.getElementById("reviewText").value = "";
+
+
+    selectedRating = 0;
+
+
+    document
+        .querySelectorAll(".star")
+        .forEach(function(star) {
+
+            star.classList.remove("selected");
+
+        });
+
+}
+
+
+
+/* ==================================================
+   INITIAL LOAD
+================================================== */
+
+loadProducts();
+
+
+</script>
+
+
+</body>
+</html>

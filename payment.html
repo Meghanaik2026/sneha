@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FreshCatch - Order</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4fbfa;
+    color:#123d45;
+}
+
+header{
+    background:white;
+    width:90%;
+    margin:20px auto;
+    padding:15px 25px;
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.12);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-icon{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#078c78;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:25px;
+}
+
+.logo h2{
+    color:#123d45;
+}
+
+.logo small{
+    color:#79918f;
+    font-size:8px;
+    letter-spacing:2px;
+}
+
+nav{
+    display:flex;
+    gap:18px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#21484d;
+    font-size:12px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#078c78;
+}
+
+
+/* MAIN */
+
+.container{
+    width:90%;
+    max-width:1000px;
+    margin:40px auto;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.title h1{
+    font-family:Georgia,serif;
+    font-size:40px;
+}
+
+.title p{
+    color:#718987;
+    margin-top:8px;
+}
+
+
+/* ORDER BOX */
+
+.order-box{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.section h2{
+    margin-bottom:18px;
+    color:#078c78;
+}
+
+
+/* INPUTS */
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-top:12px;
+    margin-bottom:6px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:13px;
+    border:1px solid #cdddda;
+    border-radius:10px;
+    outline:none;
+    font-size:14px;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#078c78;
+}
+
+textarea{
+    height:90px;
+    resize:none;
+}
+
+
+/* PRODUCT */
+
+.product-box{
+    background:#f1faf8;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+.product-row{
+    display:flex;
+    justify-content:space-between;
+    margin:12px 0;
+}
+
+.product-row span:last-child{
+    font-weight:bold;
+    color:#078c78;
+}
+
+.total{
+    border-top:1px solid #cbdedb;
+    padding-top:15px;
+    margin-top:15px;
+
+    display:flex;
+    justify-content:space-between;
+
+    font-size:20px;
+    font-weight:bold;
+}
+
+
+/* PAYMENT */
+
+.payment-option{
+    border:1px solid #d2e2df;
+    padding:15px;
+    border-radius:12px;
+    margin-top:10px;
+
+    cursor:pointer;
+}
+
+.payment-option:hover{
+    border-color:#078c78;
+    background:#f3fbf9;
+}
+
+.payment-option input{
+    width:auto;
+    margin-right:10px;
+}
+
+
+/* ONLINE PAYMENT */
+
+.online-payment{
+    display:none;
+    background:#eefaf7;
+    padding:18px;
+    border-radius:12px;
+    margin-top:15px;
+}
+
+.online-payment h3{
+    color:#078c78;
+    margin-bottom:10px;
+}
+
+.upi-box{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.upi-box input{
+    margin-top:8px;
+}
+
+
+/* BUTTON */
+
+.place-order{
+    width:100%;
+    margin-top:25px;
+
+    padding:15px;
+
+    border:none;
+    border-radius:30px;
+
+    background:#078c78;
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.place-order:hover{
+    background:#056d60;
+}
+
+
+/* SUCCESS */
+
+.success{
+    display:none;
+
+    background:white;
+    width:90%;
+    max-width:600px;
+
+    margin:50px auto;
+    padding:40px;
+
+    text-align:center;
+
+    border-radius:20px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+}
+
+.success-icon{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.success h1{
+    color:#078c78;
+}
+
+.success p{
+    margin-top:10px;
+    color:#617b78;
+}
+
+.home-btn{
+    display:inline-block;
+    margin-top:25px;
+
+    padding:12px 25px;
+
+    background:#078c78;
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:25px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:750px){
+
+    header{
+        width:94%;
+    }
+
+    nav{
+        display:none;
+    }
+
+    .container{
+        width:94%;
+    }
+
+    .order-box{
+        grid-template-columns:1fr;
+    }
+
+    .title h1{
+        font-size:32px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🐟
+        </div>
+
+        <div>
+            <h2>FreshCatch</h2>
+
+            <small>
+                FRESH • QUALITY • DELIVERED
+            </small>
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">HOME</a>
+
+        <a href="fish.html">FISH</a>
+
+        <a href="meat.html">MEAT</a>
+
+        <a href="seafood.html">SEAFOOD</a>
+
+        <a href="offers.html">OFFERS</a>
+
+        <a href="Cart.html">CART</a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ORDER PAGE -->
+
+<div class="container">
+
+    <div class="title">
+
+        <h1>Place Your Order</h1>
+
+        <p>Fresh products delivered straight to your home.</p>
+
+    </div>
+
+
+    <div class="order-box">
+
+
+        <!-- CUSTOMER DETAILS -->
+
+        <div class="section">
+
+            <h2>Customer Details</h2>
+
+
+            <label>Full Name</label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter your name"
+            >
+
+
+            <label>Phone Number</label>
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Enter phone number"
+            >
+
+
+            <label>Delivery Address</label>
+
+            <textarea
+                id="address"
+                placeholder="Enter your complete address"
+            ></textarea>
+
+
+            <label>Quantity</label>
+
+            <select id="quantity">
+
+                <option value="1">1 kg</option>
+
+                <option value="2">2 kg</option>
+
+                <option value="3">3 kg</option>
+
+                <option value="5">5 kg</option>
+
+                <option value="10">10 kg</option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="section">
+
+            <h2>Order Summary</h2>
+
+
+            <div class="product-box">
+
+                <div class="product-row">
+
+                    <span>Product</span>
+
+                    <span id="productName">
+                        FreshCatch Product
+                    </span>
+
+                </div>
+
+
+                <div class="product-row">
+
+                    <span>Price / kg</span>
+
+                    <span>
+                        ₹<span id="price">500</span>
+                    </span>
+
+                </div>
+
+
+                <div class="product-row">
+
+                    <span>Quantity</span>
+
+                    <span>
+                        <span id="showQuantity">1</span> kg
+                    </span>
+
+                </div>
+
+
+                <div class="product-row">
+
+                    <span>Delivery</span>
+
+                    <span>FREE</span>
+
+                </div>
+
+
+                <div class="total">
+
+                    <span>Total</span>
+
+                    <span>
+                        ₹<span id="total">500</span>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PAYMENT -->
+
+            <h2>Payment Method</h2>
+
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="online"
+                    onchange="showPayment()"
+                >
+
+                Online Payment
+
+            </label>
+
+
+            <label class="payment-option">
+
+                <input
+                    type="radio"
+                    name="payment"
+                    value="cod"
+                    onchange="showPayment()"
+                    checked
+                >
+
+                Cash on Delivery
+
+            </label>
+
+
+
+            <!-- ONLINE PAYMENT -->
+
+            <div
+                class="online-payment"
+                id="onlinePayment"
+            >
+
+                <h3>Online Payment</h3>
+
+                <p>
+                    Enter your UPI ID to continue.
+                </p>
+
+
+                <div class="upi-box">
+
+                    <label>UPI ID</label>
+
+                    <input
+                        type="text"
+                        id="upi"
+                        placeholder="example@upi"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <button
+                class="place-order"
+                onclick="placeOrder()"
+            >
+                PLACE ORDER
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- SUCCESS -->
+
+<div
+    class="success"
+    id="success"
+>
+
+    <div class="success-icon">
+        ✓
+    </div>
+
+    <h1>
+        Order Placed Successfully!
+    </h1>
+
+    <p id="successText">
+        Thank you for ordering from FreshCatch.
+    </p>
+
+    <a
+        href="Home.html"
+        class="home-btn"
+    >
+        Back to Home
+    </a>
+
+</div>
+
+
+
+<script>
+
+
+/* GET PRODUCT FROM URL */
+
+const params = new URLSearchParams(
+    window.location.search
+);
+
+const product =
+    params.get("product");
+
+const price =
+    params.get("price");
+
+
+if(product){
+
+    document.getElementById("productName")
+    .innerText = product;
+
+}
+
+
+if(price){
+
+    document.getElementById("price")
+    .innerText = price;
+
+}
+
+
+/* QUANTITY */
+
+const quantity =
+    document.getElementById("quantity");
+
+quantity.addEventListener(
+    "change",
+    calculateTotal
+);
+
+
+function calculateTotal(){
+
+    let qty =
+        Number(quantity.value);
+
+    let productPrice =
+        Number(
+            document.getElementById("price").innerText
+        );
+
+    let total =
+        qty * productPrice;
+
+
+    document.getElementById(
+        "showQuantity"
+    ).innerText = qty;
+
+
+    document.getElementById(
+        "total"
+    ).innerText = total;
+
+}
+
+
+calculateTotal();
+
+
+
+/* PAYMENT */
+
+function showPayment(){
+
+    let selected =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        ).value;
+
+
+    let online =
+        document.getElementById(
+            "onlinePayment"
+        );
+
+
+    if(selected === "online"){
+
+        online.style.display =
+            "block";
+
+    }
+
+    else{
+
+        online.style.display =
+            "none";
+
+    }
+
+}
+
+
+
+/* PLACE ORDER */
+
+function placeOrder(){
+
+    let name =
+        document.getElementById("name").value.trim();
+
+    let phone =
+        document.getElementById("phone").value.trim();
+
+    let address =
+        document.getElementById("address").value.trim();
+
+
+    if(name === ""){
+
+        alert("Please enter your name.");
+
+        return;
+
+    }
+
+
+    if(phone === ""){
+
+        alert("Please enter your phone number.");
+
+        return;
+
+    }
+
+
+    if(address === ""){
+
+        alert("Please enter your delivery address.");
+
+        return;
+
+    }
+
+
+    if(phone.length !== 10){
+
+        alert("Please enter a valid 10-digit phone number.");
+
+        return;
+
+    }
+
+
+    let payment =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        ).value;
+
+
+    if(payment === "online"){
+
+        let upi =
+            document.getElementById("upi").value.trim();
+
+
+        if(upi === ""){
+
+            alert("Please enter your UPI ID.");
+
+            return;
+
+        }
+
+
+        alert(
+            "Online payment selected.\n\n" +
+            "Connect a payment gateway to complete the real payment."
+        );
+
+    }
+
+
+    let productName =
+        document.getElementById("productName").innerText;
+
+
+    let total =
+        document.getElementById("total").innerText;
+
+
+    document.querySelector(
+        ".container"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "success"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "successText"
+    ).innerText =
+
+        "Thank you " + name +
+        "! Your order for " +
+        productName +
+        " has been placed. Total amount: ₹" +
+        total +
+        ". Payment: " +
+        (payment === "cod"
+            ? "Cash on Delivery"
+            : "Online Payment");
+
+}
+
+
+</script>
+
+</body>
+</html>

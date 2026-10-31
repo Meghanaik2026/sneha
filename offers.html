@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreshCatch - Special Offers</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5e9c9;
+    color:#444;
+}
+
+/* NAVIGATION */
+nav{
+    background:#176b3a;
+    padding:16px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    color:white;
+    font-size:27px;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#c8f7d0;
+}
+
+/* CART */
+
+.cart-link{
+    background:#ff9800;
+    padding:8px 14px;
+    border-radius:20px;
+}
+
+#cartCount{
+    background:white;
+    color:#176b3a;
+    padding:3px 8px;
+    border-radius:50%;
+    margin-left:5px;
+}
+
+/* TOP OFFER */
+.top{
+    width:88%;
+    margin:25px auto 30px;
+    background:linear-gradient(135deg,#176b3a,#4caf50);
+    color:white;
+    text-align:center;
+    padding:30px 15px;
+    border-radius:18px;
+}
+
+.top h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.top p{
+    margin:6px;
+}
+
+.top .off{
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* OFFER CARDS */
+.offers{
+    width:90%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.card{
+    background:#fffdf5;
+    border-radius:18px;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+}
+
+.card img{
+    width:100%;
+    height:210px;
+    object-fit:cover;
+    display:block;
+}
+
+.content{
+    padding:20px;
+}
+
+.content h2{
+    color:#4b7737;
+    margin-bottom:8px;
+}
+
+.content h3{
+    margin:8px 0;
+    font-size:25px;
+    color:#b86b25;
+}
+
+.content p{
+    margin:8px 0;
+}
+
+.price{
+    color:#b86b25;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* BUTTONS */
+
+.button-area{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:10px;
+}
+
+.cart-button{
+    background:#ff9800;
+    color:white;
+    border:none;
+    padding:11px 25px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+    width:100%;
+}
+
+.cart-button:hover{
+    background:#e68900;
+}
+
+.order{
+    background:#4caf50;
+    color:white;
+    border:none;
+    padding:11px 25px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+    width:100%;
+}
+
+.order:hover{
+    background:#176b3a;
+}
+
+/* POPUP */
+.popup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.65);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+
+.popup-box{
+    background:white;
+    width:90%;
+    max-width:450px;
+    padding:25px;
+    border-radius:15px;
+    position:relative;
+}
+
+.popup-box h2{
+    text-align:center;
+    color:#176b3a;
+    margin-bottom:18px;
+}
+
+.close{
+    position:absolute;
+    right:18px;
+    top:8px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.popup-box label{
+    display:block;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+.popup-box input,
+.popup-box textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #bbb;
+    border-radius:7px;
+}
+
+.popup-box textarea{
+    height:70px;
+    resize:none;
+}
+
+.total{
+    margin-top:15px;
+    color:#b86b25;
+    font-size:19px;
+    font-weight:bold;
+}
+
+.confirm{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#4caf50;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+    margin-top:35px;
+    background:#176b3a;
+    color:white;
+    text-align:center;
+    padding:18px;
+}
+
+/* MOBILE */
+@media(max-width:800px){
+
+    .offers{
+        grid-template-columns:1fr;
+    }
+
+    nav{
+        flex-direction:column;
+        gap:12px;
+    }
+
+    nav a{
+        margin:5px;
+        font-size:14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+
+    <div class="logo">
+        FreshCatch
+    </div>
+
+    <div>
+
+        <a href="index.html">Home</a>
+        <a href="fish.html">Fish</a>
+        <a href="meat.html">Meat</a>
+        <a href="seafood.html">Seafood</a>
+        <a href="offers.html">Special Offers</a>
+        <a href="contact.html">Contact</a>
+
+        <a href="#offers" class="cart-link">
+            🛒 Cart
+            <span id="cartCount">0</span>
+        </a>
+
+         <a href="rating1.html">Rating</a>
+
+       <a href="Order.html">Location</a>
+        <a href="payment.html">Payment</a>
+
+
+
+    </div>
+
+</nav>
+
+
+<!-- WEEKEND DEALS -->
+<div class="top">
+
+    <h1>🔥 WEEKEND FRESH DEALS 🔥</h1>
+
+    <p>
+        More Freshness • More Quality • More Savings
+    </p>
+
+    <div class="off">
+        Get up to 20% OFF
+    </div>
+
+</div>
+
+
+<!-- OFFER CARDS -->
+<div class="offers" id="offers">
+
+
+    <!-- FRESH FISH -->
+    <div class="card">
+
+        <img src="C:\Users\Kamadhenu BCA\Downloads\sb1.jpg"
+        alt="Fresh Fish">
+
+        <div class="content">
+
+            <h2>🐟 Fresh Fish</h2>
+
+            <p>
+                <b>Today's Fresh Catch</b>
+            </p>
+
+            <h3>
+                10% OFF
+            </h3>
+
+            <p>
+                Fresh Bangda, Rohu, Pomfret etc.
+            </p>
+
+            <p class="price">
+                ₹450/kg onwards
+            </p>
+
+            <div class="button-area">
+
+                <button class="cart-button"
+                onclick="addToCart('Fresh Fish',450)">
+
+                    🛒 ADD TO CART
+
+                </button>
+
+                <button class="order"
+                onclick="openOrder('Fresh Fish',450,10)">
+
+                    ORDER NOW
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FRESH MEAT -->
+    <div class="card">
+
+        <img src="C:\Users\Kamadhenu BCA\Downloads\fc.jpg"
+        alt="Fresh Meat">
+
+        <div class="content">
+
+            <h2>🥩 Fresh Meat</h2>
+
+            <p>
+                <b>Fresh & Tender Meat</b>
+            </p>
+
+            <h3>
+                15% OFF
+            </h3>
+
+            <p>
+                Chicken & Mutton
+            </p>
+
+            <p class="price">
+                ₹280/kg onwards
+            </p>
+
+            <div class="button-area">
+
+                <button class="cart-button"
+                onclick="addToCart('Fresh Meat',280)">
+
+                    🛒 ADD TO CART
+
+                </button>
+
+                <button class="order"
+                onclick="openOrder('Fresh Meat',280,15)">
+
+                    ORDER NOW
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEAFOOD -->
+    <div class="card">
+
+        <img src="C:\Users\Kamadhenu BCA\Downloads\de1.jpg"
+        alt="Seafood">
+
+        <div class="content">
+
+            <h2>🦐 Seafood</h2>
+
+            <p>
+                <b>Seafood Special Deal</b>
+            </p>
+
+            <h3>
+                20% OFF
+            </h3>
+
+            <p>
+                Prawns, Crab, Clams etc.
+            </p>
+
+            <p class="price">
+                ₹350/kg onwards
+            </p>
+
+            <div class="button-area">
+
+                <button class="cart-button"
+                onclick="addToCart('Seafood',350)">
+
+                    🛒 ADD TO CART
+
+                </button>
+
+                <button class="order"
+                onclick="openOrder('Seafood',350,20)">
+
+                    ORDER NOW
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ORDER POPUP -->
+<div class="popup" id="popup">
+
+    <div class="popup-box">
+
+        <span class="close"
+        onclick="closeOrder()">
+            ×
+        </span>
+
+        <h2>
+            Place Your Order
+        </h2>
+
+        <label>
+            Selected Item
+        </label>
+
+        <input
+        type="text"
+        id="product"
+        readonly>
+
+        <label>
+            Name
+        </label>
+
+        <input
+        type="text"
+        id="name">
+
+        <label>
+            Phone Number
+        </label>
+
+        <input
+        type="tel"
+        id="phone"
+        maxlength="10"
+        pattern="[0-9]{10}">
+
+        <label>
+            Delivery Address
+        </label>
+
+        <textarea
+        id="address"></textarea>
+
+        <label>
+            Quantity (kg)
+        </label>
+
+        <input
+        type="number"
+        id="quantity"
+        min="1"
+        step="0.5"
+        value="1"
+        oninput="calculateTotal()">
+
+        <div class="total">
+
+            Total Amount: ₹
+            <span id="total">
+                0
+            </span>
+
+        </div>
+
+        <button
+        class="confirm"
+        onclick="confirmOrder()">
+
+            CONFIRM ORDER
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    © 2026 FreshCatch |
+    Freshness Straight to Your Table
+
+</footer>
+
+
+<script>
+
+/* =========================
+   ADD TO CART
+========================= */
+
+function addToCart(name, price){
+
+    let cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
+    let existingItem =
+        cart.find(item => item.name === name);
+
+    if(existingItem){
+
+        existingItem.quantity++;
+
+    }
+    else{
+
+        cart.push({
+
+            name:name,
+            price:price,
+            quantity:1
+
+        });
+
+    }
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
+    alert(name + " added to cart!");
+
+}
+
+
+/* =========================
+   CART COUNT
+========================= */
+
+function updateCartCount(){
+
+    let cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
+    let count = 0;
+
+    cart.forEach(function(item){
+
+        count += item.quantity;
+
+    });
+
+    document.getElementById("cartCount").innerText =
+        count;
+}
+
+
+/* =========================
+   ORDER
+========================= */
+
+let selectedPrice = 0;
+let discount = 0;
+
+
+function openOrder(product, price, off){
+
+    selectedPrice = price;
+    discount = off;
+
+    document.getElementById("product").value =
+        product;
+
+    document.getElementById("quantity").value = 1;
+
+    calculateTotal();
+
+    document.getElementById("popup").style.display =
+        "flex";
+}
+
+
+function closeOrder(){
+
+    document.getElementById("popup").style.display =
+        "none";
+}
+
+
+function calculateTotal(){
+
+    let quantity =
+        parseFloat(
+            document.getElementById("quantity").value
+        ) || 0;
+
+    let original =
+        selectedPrice * quantity;
+
+    let discountAmount =
+        original * discount / 100;
+
+    let finalAmount =
+        original - discountAmount;
+
+    document.getElementById("total").innerText =
+        finalAmount.toFixed(0);
+}
+
+
+function confirmOrder(){
+
+    let name =
+        document.getElementById("name").value;
+
+    let phone =
+        document.getElementById("phone").value;
+
+    let address =
+        document.getElementById("address").value;
+
+    let product =
+        document.getElementById("product").value;
+
+    let quantity =
+        document.getElementById("quantity").value;
+
+    let total =
+        document.getElementById("total").innerText;
+
+
+    if(
+        name === "" ||
+        phone === "" ||
+        address === ""
+    ){
+
+        alert("Please fill all details.");
+
+        return;
+    }
+
+
+    if(phone.length !== 10){
+
+        alert(
+            "Please enter a valid 10-digit phone number."
+        );
+
+        return;
+    }
+
+
+    alert(
+        "Order Confirmed! 🎉\n\n" +
+        "Customer: " + name + "\n" +
+        "Item: " + product + "\n" +
+        "Quantity: " + quantity + " kg\n" +
+        "Total Amount: ₹" + total
+    );
+
+
+    closeOrder();
+
+}
+
+
+/* PAGE LOAD */
+
+updateCartCount();
+
+</script>
+
+</body>
+</html>
